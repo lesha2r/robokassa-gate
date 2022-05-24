@@ -8,7 +8,7 @@
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "author": "lesha2r",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "jest": "^28.1.0",
     "eslint": "^8.16.0"
