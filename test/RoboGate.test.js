@@ -1,7 +1,7 @@
 import RoboGate from '../src/RoboGate.js';
 
 let roboGateConfig = {
-    merchantLogin: 'kodzerocc',
+    merchantLogin: 'myshop',
     hashingAlgorithm: 'md5',
     password1: '000',
     password2: '999',
