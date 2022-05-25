@@ -15,7 +15,7 @@ npm i robokassa-gate
 
 ## Create Robokassa gate object 
 ```
-import RoboGate from './src/RoboGate.js';
+import RoboGate from 'robokassa-gate';
 
 // Create config object
 const config = {

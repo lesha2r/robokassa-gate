@@ -1,6 +1,6 @@
 {
   "name": "robokassa-gate",
-  "version": "1.0.1",
+  "version": "1.0.6",
   "description": "JavaScript API integration for Robokassa payment system",
   "main": "src/RoboGate.js",
   "type": "module",
