@@ -63,7 +63,7 @@ function RoboGate(config) {
         };
         
         options = { ...optionsDefaults, ...options };
-
+        
         let params = {
             MerchantLogin: this.config.merchantLogin,
             OutSum: options.invSumm,
@@ -163,7 +163,7 @@ function RoboGate(config) {
         }
 
         // Add either test password or prod password
-        if (options.isTest === true) values.push(this.config.testPassword1);
+        if (this.config.testMode === true) values.push(this.config.testPassword1);
         else values.push(this.config.password1);
 
         // Prepare and add custom params if it is presented
