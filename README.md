@@ -47,7 +47,6 @@ let newOrderURL = robokassa.generatePaymentURL({
     invSumm: 700,
     invDescr: 'test payment',
     email: 'example@email.com',
-    isTest: true,
     items: [{ name: 'Product 1', quantity: 2, price: 200 },{ name: 'Product 2', price: 300 }],
     customData: {
         'any key': 'custom note'
