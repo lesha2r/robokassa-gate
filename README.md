@@ -1,23 +1,23 @@
-JavaScript API integration for Robokassa payment system
+Интеграция API Робокасса/Robokassa
 
-# Features
-Everything for quick payment integration:
-* Generates signed payment link
-* Validates payment result
-* Supports receipts
-* Supports test mode (including test payments)
+# Что умеет?
+Всё, для быстрой интеграции платежной системы
+* Формирует ссылку для оплаты
+* Позволяет работать с чеками
+* Валидирует вебхук Робокассы при оплате заказа
+* Поддерживает test-режим
 
-# Getting started
-## Install package using NPM
+# Начало работы
+## Установить пакет NPM
 ```
 npm i robokassa-gate
 ```
 
-## Create Robokassa gate object 
+## Подключение в проекте
 ```
 import RoboGate from 'robokassa-gate';
 
-// Create config object
+// Объект конфигурации
 const config = {
     merchantLogin: 'myshopname',
     hashingAlgorithm: 'md5',
@@ -27,52 +27,62 @@ const config = {
     testPassword1: 'zxcvbn12345689',
     testPassword2: 'mnbvcx987654321',
     resultUrlRequestMethod: 'GET', // !ONLY ACCEPTED METHOD FOR NOW
+    // Чек 👇
+    // Коды систем налогооблажения, объекта оплаты, НДС - 
+    // см. в документации Робокассы (https://docs.robokassa.ru/)
     receipt: {
         sno: "usn_income",
         paymentMethod: "full_payment",
         paymentObject: "service",
-        tax: "none"
+        tax: "none" 
     }
 };
 
-// Robokassa instance
+// Создаём инстанс класса RoboGate
 const robokassa = new RoboGate(config);
 ```
 
-## Generate payment link
+## Генерация ссылки для оплаты
 ```
-// Generate payment URL link
-let newOrderURL = robokassa.generatePaymentURL({
-    invId: 1,
-    invSumm: 700,
-    invDescr: 'test payment',
-    email: 'example@email.com',
-    isTest: true,
-    items: [{ name: 'Product 1', quantity: 2, price: 200 },{ name: 'Product 2', price: 300 }],
+// Пример создание ссылки для оплаты
+const newOrderURL = robokassa.generatePaymentURL({
+    isTest: true, // для тестирования
+    invId: 1, // id заказа
+    invSumm: 700, // сумма заказа
+    invDescr: 'test payment', // описание
+    email: 'example@email.com',  // email пользователя
+    // список позиций (войдут в чек)
+    items: [
+        { name: 'Product 1', quantity: 2, price: 200 }, 
+        { name: 'Product 2', price: 300 }
+    ],
+    // любые данные для внутреннего пользования
     customData: {
         'any key': 'custom note'
     }
 });
 ```
 
-## Validate payment result response
+## Валидация данных об оплате
 ```
-// Express example
-
+// Express.js
+// Адрес, указанный в личном кабинете Робокассы
 app.get('/payment-result/', (req, res) => {
     const isPaymentValidated = robokassa.validateResult(req);
 
     if (isPaymentValidated) {
-        // ... any logic for succeed validation
+        // ... ваша логика при успешной оплате
     } else {
-        // ... any logic if payment validation fails
+        // ... ваша логика, если оплата не валидирована
     }
 })
-
 ```
 
 # TODOs
-- [ ] Handle POST method for payment result notifications
+- [ ] Добавить поддержку POST для вебхука об оплате
 
-# Official Robokassa docs
-See more on https://docs.robokassa.ru/
+# Документация Робокассы
+См. https://docs.robokassa.ru/
+
+# Помощь
+https://t.me/leshatour

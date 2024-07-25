@@ -36,3 +36,41 @@ test('Camel cased string with first char uppered to become camelcased', () => {
 test('String started with specified prefix returns true', () => {
     expect(helpers.strStartsFrom('Shp_anything', 'Shp_')).toBe(true);
 });
+
+test('Config validation helper works as expected', () => {
+    // config.merchantLogin === 'string' || 'merchantLogin');
+    // checks.push(typeof config.password1 === 'string' || 'password1');
+    // checks.push(typeof config.password2 === 'string' || 'password2');
+    // checks.push(typeof config.testMode === 'boolean' || 'testMode');
+    // checks.push(typeof config.testPassword1 === 'string' || 'testPassword1');
+    // checks.push(typeof config.testPassword2
+    const okConfig = {
+        merchantLogin: 'test',
+        password1: '111',
+        password2: '333',
+        testMode: true,
+        testPassword1: '444',
+        testPassword2: '555'
+    };
+    
+    const badConfig1 = {
+        merchantLogin: '',
+        password1: '',
+        password2: '',
+        testMode: true,
+        testPassword1: '',
+        testPassword2: ''
+    };
+
+    const badConfig2 = {
+        merchantLogin: '',
+        password1: '',
+        password2: '',
+        testPassword1: '',
+        testPassword2: ''
+    };
+
+    expect(helpers.validateInputConfig(okConfig)).toBe(true);
+    expect(() => helpers.validateInputConfig(badConfig1)).toThrow('Check config params: merchantLogin, password1, password2, testPassword1, testPassword2');
+    expect(() => helpers.validateInputConfig(badConfig2)).toThrow('Check config params: merchantLogin, password1, password2, testPassword1, testPassword2');
+});

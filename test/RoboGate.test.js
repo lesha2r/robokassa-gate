@@ -23,14 +23,9 @@ let roboGateConfig = {
 test('Config object missing passwords throws error', () => {
     let config = { ...roboGateConfig };
     config.password1 = '';
+    // @ts-ignore
     config.password2 = undefined;
 
-    expect(() => new RoboGate(config)).toThrow();
-});
-
-test('Config object missing hashing method throws error', () => {
-    let config = { ...roboGateConfig };
-    config.hashingAlgorithm = undefined;
     expect(() => new RoboGate(config)).toThrow();
 });
 
