@@ -65,10 +65,6 @@ class RoboGate {
             }
         }
 
-        if (this.config.resultUrlRequestMethod !== 'GET') {
-            throw new Error('Only GET method supported as resultUrlRequestMethod');
-        }
-
         /**
          * Function to generate unique payment URL
          * @param  {object} options { invSumm, invDescr, invId, invSummCurrency, email, encoding, items, customData }
